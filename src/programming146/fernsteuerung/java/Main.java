@@ -10,9 +10,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("gui.fxml"));
-        loader.setController(new Gui());
-        Pane mainPain = loader.load();*/
         Parent root = FXMLLoader.load(getClass().getResource("gui.fxml"));
         primaryStage.setTitle("Fernsteuerung");
         primaryStage.setScene(new Scene(root, 600,400));
