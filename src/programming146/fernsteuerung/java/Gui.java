@@ -9,9 +9,21 @@ public class Gui {
     @FXML public MenuItem closeMenuItem;
     public AnchorPane root;
 
+    /**
+     * closes window and ends program
+     */
     @FXML
     public void pressClose() {
         Stage stage = (Stage) root.getScene().getWindow(); //get a handle to the stage
         stage.close();
+    }
+
+    /**
+     * checks server registration and connects to server
+     */
+    @FXML
+    public void pressServerConnection() throws Exception {
+        ServerConnection serverConnection = new ServerConnection();
+        serverConnection.call();
     }
 }

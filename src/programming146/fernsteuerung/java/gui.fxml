@@ -6,21 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="programming146.fernsteuerung.java.Gui">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programming146.fernsteuerung.java.Gui">
     <BorderPane prefHeight="400.0" prefWidth="600.0">
         <top>
             <MenuBar BorderPane.alignment="CENTER">
                 <Menu mnemonicParsing="false" text="Programm">
-                    <MenuItem mnemonicParsing="false" text="Unspecified Action"/>
-                    <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#pressClose"
-                              text="Close"/>
+                    <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                    <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#pressClose" text="Close" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Einstellungen">
-                    <MenuItem mnemonicParsing="false" text="Serververbindung"/>
+                    <MenuItem fx:id="connectionButton" mnemonicParsing="false" onAction="#pressServerConnection" text="Serververbindung" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
-                    <MenuItem mnemonicParsing="false" text="About"/>
+                    <MenuItem mnemonicParsing="false" text="About" />
                 </Menu>
             </MenuBar>
         </top>
