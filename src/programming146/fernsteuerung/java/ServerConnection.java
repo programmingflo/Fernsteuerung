@@ -10,19 +10,34 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
 
+/**
+ * @author Tim Grohmann
+ */
+
 public class ServerConnection extends Task {
+    private final String request;
+
+    /**
+     * connection to server
+     * @param request request type
+     * @return JSONObject server response data
+     */
+    ServerConnection(String request) {
+        this.request = request;
+    }
+
     @Override
-    protected Object call() throws Exception {
+    protected Object call() {
         try{
-            return new JSONObject(downloadFromUrl());
-        }catch (IOException | JSONException e){
+            return new JSONObject(downloadFromUrl(request));
+        }catch (JSONException e){
             System.out.print(e.getMessage());
             return null;
         }
     }
 
-    private String downloadFromUrl() throws IOException{
-        String urlString = "https://146programming.de/fernsteuerung/login";
+    private String downloadFromUrl(String request){
+        String urlString = "https://146programming.de/fernsteuerung/"+request;
         InputStream is = null;
         try{
             URL url = new URL(urlString);
