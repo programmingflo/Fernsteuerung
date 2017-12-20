@@ -12,7 +12,7 @@
         <top>
             <MenuBar BorderPane.alignment="CENTER">
                 <Menu mnemonicParsing="false" text="Programm">
-                    <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                    <MenuItem fx:id="testButton" mnemonicParsing="false" onAction="#pressTest" text="Test" />
                     <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#pressClose" text="Close" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Einstellungen">
