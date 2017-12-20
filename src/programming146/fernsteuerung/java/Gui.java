@@ -5,8 +5,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class Gui {
@@ -15,6 +19,7 @@ public class Gui {
     @FXML public MenuItem connectionButton;
     @FXML public MenuItem showSettingsButton;
     @FXML public TextArea textAreaOutput;
+    public MenuItem testButton;
 
     /**
      * closes window and ends program
@@ -50,7 +55,7 @@ public class Gui {
         if(username.isEmpty()&&password.isEmpty()){
             request = "initial";
         }else {
-            request = "login";
+            request = "command";
         }
 
         try {
@@ -81,5 +86,20 @@ public class Gui {
         }
 
         textAreaOutput.setText("username: "+username+"\npassword: "+password);
+    }
+
+    @FXML
+    public void pressTest(){
+        JSONObject testCommand = new JSONObject();
+        try {
+            testCommand.put("device","keyboard");
+            testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
+        } catch (JSONException e) {
+            System.out.print(e.getMessage());
+        }
+
+        CommandExecution commandExecution = new CommandExecution();
+        String result = commandExecution.executeCommand(testCommand);
+        textAreaOutput.setText(result);
     }
 }
