@@ -12,7 +12,7 @@ public class CommandExecution {
     CommandExecution() {
     }
 
-    public String executeCommand(JSONObject rawCommand){
+    public String executeCommand(JSONObject rawCommand){ //Aufruf in Gui-Klasse in der pressTest()-Funktion
         try {
             Robot robot = new Robot();
             String device = rawCommand.getString("device");
