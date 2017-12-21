@@ -97,8 +97,8 @@ public class Gui {
             Runtime runtime = Runtime.getRuntime();
             runtime.exec("cmd.exe /c start pause");
             testCommand.put("device","keyboard");
-            testCommand.put("command","test");
-            //testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
+            //testCommand.put("command","test");
+            testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
         } catch (JSONException e) {
             System.out.print(e.getMessage());
         } catch (IOException e) {
