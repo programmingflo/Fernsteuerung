@@ -93,7 +93,7 @@ public class Gui {
         JSONObject testCommand = new JSONObject();
         try {
             testCommand.put("device","keyboard");
-            testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
+            testCommand.put("command","C/M/D/ENTER");//WINDOWS/R/WINDOWS-RELEASE/
         } catch (JSONException e) {
             System.out.print(e.getMessage());
         }
