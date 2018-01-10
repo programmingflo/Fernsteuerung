@@ -1,6 +1,9 @@
 package programming146.fernsteuerung.java;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -98,8 +101,8 @@ public class Gui {
             runtime.exec("cmd.exe /c start pause");
             testCommand.put("device","keyboard");
             //testCommand.put("command","test");
-            testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
-            testCommand.put("command","C/M/D/ENTER");//WINDOWS/R/WINDOWS-RELEASE/
+            //testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
+            testCommand.put("command","C/M/D/ENTER");
         } catch (JSONException e) {
             System.out.print(e.getMessage());
         } catch (IOException e) {
@@ -113,6 +116,14 @@ public class Gui {
 
     @FXML
     public void pressChangeSettings(){
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("settingsDialog.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Einstellungen");
+            stage.setScene(new Scene(root, 600,400));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
