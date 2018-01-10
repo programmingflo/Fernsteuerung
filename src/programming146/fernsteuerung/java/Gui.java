@@ -19,7 +19,8 @@ public class Gui {
     @FXML public MenuItem connectionButton;
     @FXML public MenuItem showSettingsButton;
     @FXML public TextArea textAreaOutput;
-    public MenuItem testButton;
+    @FXML public MenuItem testButton;
+    @FXML public MenuItem changeSettingsButton;
 
     /**
      * closes window and ends program
@@ -40,12 +41,13 @@ public class Gui {
         String username = "",password = "";
 
         try {
-            File propertiesFile = new File("");
+            File propertiesFile = new File("config.properties");
             FileInputStream fileInputStream = new FileInputStream(propertiesFile);
             properties.load(fileInputStream);
             fileInputStream.close();
         }catch (IOException e){
-            System.out.print(e.getMessage());
+            //System.out.print(e.getCause());
+            e.printStackTrace();
         }
 
         if(!properties.isEmpty()) {
@@ -92,14 +94,25 @@ public class Gui {
     public void pressTest(){
         JSONObject testCommand = new JSONObject();
         try {
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("cmd.exe /c start pause");
             testCommand.put("device","keyboard");
+            //testCommand.put("command","test");
+            testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
             testCommand.put("command","C/M/D/ENTER");//WINDOWS/R/WINDOWS-RELEASE/
         } catch (JSONException e) {
             System.out.print(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         CommandExecution commandExecution = new CommandExecution();
         String result = commandExecution.executeCommand(testCommand);
         textAreaOutput.setText(result);
+    }
+
+    @FXML
+    public void pressChangeSettings(){
+
     }
 }

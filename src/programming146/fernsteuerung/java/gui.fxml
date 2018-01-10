@@ -18,6 +18,7 @@
                 <Menu mnemonicParsing="false" text="Einstellungen">
                     <MenuItem fx:id="connectionButton" mnemonicParsing="false" onAction="#pressServerConnection" text="Serververbindung" />
                     <MenuItem fx:id="showSettingsButton" mnemonicParsing="false" onAction="#pressShowSettings" text="Einstellungen anzeigen" />
+               <MenuItem fx:id="changeSettingsButton" mnemonicParsing="false" onAction="#pressChangeSettings" text="Einstellungen ändern" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <MenuItem mnemonicParsing="false" text="About" />
