@@ -22,6 +22,7 @@ public class CommandExecution {
             switch (device) {
                 case "keyboard":
                     String command = rawCommand.getString("command");
+                    System.out.print(command+"\n");
                     String[] commandParts = command.split("/");
 
                     for (String commandPart : commandParts) {
@@ -39,20 +40,23 @@ public class CommandExecution {
                                 output.append("ENTER/");
                                 break;
                             default:
-                                for (Integer i = 0; i <= commandPart.length() - 1; i++) {
+                                for (Integer i = 0; i <= commandPart.length()-1; i++) {
                                     if (isUpperCase(commandPart.charAt(i))) {
                                         robot.keyPress(VK_SHIFT);
+                                        output.append("SHIFT/");
                                     }
-                                    robot.keyPress(commandPart.charAt(i));
+                                    robot.keyPress(commandPart.toUpperCase().charAt(i));
+                                    output.append(commandPart.charAt(i)).append("/");
                                     if (isUpperCase(commandPart.charAt(i))) {
                                         robot.keyRelease(VK_SHIFT);
+                                        output.append("SHIFT-RELEASE/");
                                     }
                                 }
                         }
                     }
                     return "SUCCESS: " + output;
                 case "error":
-                    return "ERROR: " + output;
+                    return "ERROR: " + rawCommand.getString("command");
                 default:
                     return "ERROR: unknown device";
             }
