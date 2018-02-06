@@ -16,6 +16,7 @@ public class CommandExecution {
     public String executeCommand(JSONObject rawCommand){ //Aufruf in Gui-Klasse in der pressTest()-Funktion
         try {
             Robot robot = new Robot();
+            robot.delay(5000);
             String device = rawCommand.getString("device");
             String output = "";
             if (device.equals("keyboard")) {
