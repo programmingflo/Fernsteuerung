@@ -14,6 +14,7 @@
             <MenuBar BorderPane.alignment="CENTER">
                 <Menu mnemonicParsing="false" text="Programm">
                     <MenuItem fx:id="testButton" mnemonicParsing="false" onAction="#pressTest" text="Test" />
+                    <MenuItem fx:id="hideMenuItem" mnemonicParsing="false" onAction="#pressHide" text="Hide" />
                     <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#pressClose" text="Close" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Einstellungen">
