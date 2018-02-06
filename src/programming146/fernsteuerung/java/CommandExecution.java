@@ -18,39 +18,44 @@ public class CommandExecution {
             Robot robot = new Robot();
             robot.delay(5000);
             String device = rawCommand.getString("device");
-            String output = "";
-            if (device.equals("keyboard")) {
-                String command = rawCommand.getString("command");
-                String[] commandParts = command.split("/");
+            StringBuilder output = new StringBuilder();
+            switch (device) {
+                case "keyboard":
+                    String command = rawCommand.getString("command");
+                    String[] commandParts = command.split("/");
 
-                for(String commandPart: commandParts){
-                    switch (commandPart){
-                        case "WINDOWS":
-                            robot.keyPress(VK_WINDOWS);
-                            output = output + "WINDOWS/";
-                            break;
-                        case "WINDOWS-RELEASE":
-                            robot.keyRelease(VK_WINDOWS);
-                            output = output + "WINDOWS-RELEASE/";
-                            break;
-                        case "ENTER":
-                            robot.keyPress(VK_ENTER);
-                            output = output + "ENTER/";
-                            break;
-                        default:
-                            for(Integer i = 0; i <= commandPart.length()-1; i++){
-                                if(isUpperCase(commandPart.charAt(i))){
-                                    robot.keyPress(VK_SHIFT);
+                    for (String commandPart : commandParts) {
+                        switch (commandPart) {
+                            case "WINDOWS":
+                                robot.keyPress(VK_WINDOWS);
+                                output.append("WINDOWS/");
+                                break;
+                            case "WINDOWS-RELEASE":
+                                robot.keyRelease(VK_WINDOWS);
+                                output.append("WINDOWS-RELEASE/");
+                                break;
+                            case "ENTER":
+                                robot.keyPress(VK_ENTER);
+                                output.append("ENTER/");
+                                break;
+                            default:
+                                for (Integer i = 0; i <= commandPart.length() - 1; i++) {
+                                    if (isUpperCase(commandPart.charAt(i))) {
+                                        robot.keyPress(VK_SHIFT);
+                                    }
+                                    robot.keyPress(commandPart.charAt(i));
+                                    if (isUpperCase(commandPart.charAt(i))) {
+                                        robot.keyRelease(VK_SHIFT);
+                                    }
                                 }
-                                robot.keyPress(commandPart.charAt(i));
-                                if(isUpperCase(commandPart.charAt(i))){
-                                    robot.keyRelease(VK_SHIFT);
-                                }
-                            }
+                        }
                     }
-                }
+                    return "SUCCESS: " + output;
+                case "error":
+                    return "ERROR: " + output;
+                default:
+                    return "ERROR: unknown device";
             }
-            return "success/"+output;
         }catch(AWTException|JSONException e){
             return e.getMessage();
         }
