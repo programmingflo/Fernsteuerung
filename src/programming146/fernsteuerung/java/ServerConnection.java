@@ -30,7 +30,7 @@ public class ServerConnection extends Task {
     }
 
     @Override
-    protected Object call() {
+    protected JSONObject call() {
         try{
             return new JSONObject(downloadFromUrl(request));
         }catch (JSONException|IOException e){
@@ -46,7 +46,7 @@ public class ServerConnection extends Task {
         Properties properties = new Properties();
 
         try {
-            File propertiesFile = new File("");
+            File propertiesFile = new File("config.properties");
             FileInputStream fileInputStream = new FileInputStream(propertiesFile);
             properties.load(fileInputStream);
             fileInputStream.close();
@@ -56,7 +56,7 @@ public class ServerConnection extends Task {
 
         if(!properties.isEmpty()) {
             ArrayList<String> account = new ArrayList<>();
-            account.add("account");
+            account.add("username");
             account.add(properties.getProperty("username"));
 
             ArrayList<String> password = new ArrayList<>();
@@ -90,6 +90,7 @@ public class ServerConnection extends Task {
                 conn.setConnectTimeout(15000 /*milliseconds*/);
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
+                conn.setDoOutput(true);
                 conn.setFixedLengthStreamingMode(postDataLength);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 OutputStream os = conn.getOutputStream();
@@ -109,7 +110,7 @@ public class ServerConnection extends Task {
                 //Convert the InputStream into a String
                 String contentAsString = convertStreamToString(is);
                 //Log.d("146s","content: "+contentAsString);
-                System.out.print(contentAsString);
+                System.out.print(contentAsString +"\n");
                 //c=contentAsString;
                 return contentAsString;
             } catch (IOException e) {
