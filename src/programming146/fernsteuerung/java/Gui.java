@@ -220,7 +220,7 @@ public class Gui {
                             );
                         }
                     },
-                    2_000
+                    5_000
             );
 
             // add the application tray icon to the system tray.
