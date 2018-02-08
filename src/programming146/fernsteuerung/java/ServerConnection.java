@@ -14,7 +14,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- * @author Tim Grohmann
+ * @author Tim Grohmann, fit to project by Florian Mansfeld
  */
 
 public class ServerConnection extends Task {
