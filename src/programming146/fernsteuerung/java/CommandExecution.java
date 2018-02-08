@@ -10,8 +10,7 @@ import static java.lang.Character.isUpperCase;
 
 
 public class CommandExecution {
-    CommandExecution() {
-    }
+    CommandExecution() {}
 
     public String executeCommand(JSONObject rawCommand){ //Aufruf in Gui-Klasse in der pressTest()-Funktion
         try {
@@ -34,6 +33,26 @@ public class CommandExecution {
                             case "WINDOWS-RELEASE":
                                 robot.keyRelease(VK_WINDOWS);
                                 output.append("WINDOWS-RELEASE/");
+                                break;
+                            case "ALT":
+                                robot.keyPress(VK_ALT);
+                                output.append("ALT/");
+                                break;
+                            case "ALT-RELEASE":
+                                robot.keyRelease(VK_ALT);
+                                output.append("ALT-RELEASE/");
+                                break;
+                            case "STRG":
+                                robot.keyPress(VK_CONTROL);
+                                output.append("ALT/");
+                                break;
+                            case "STRG-RELEASE":
+                                robot.keyRelease(VK_CONTROL);
+                                output.append("ALT/");
+                                break;
+                            case "SLASH":
+                                robot.keyPress(VK_SLASH);
+                                output.append("ALT/");
                                 break;
                             case "ENTER":
                                 robot.keyPress(VK_ENTER);
