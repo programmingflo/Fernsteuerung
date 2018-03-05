@@ -12,7 +12,7 @@ import static java.lang.Character.isUpperCase;
 public class CommandExecution {
     CommandExecution() {}
 
-    public String executeCommand(JSONObject rawCommand){ //Aufruf in Gui-Klasse in der pressTest()-Funktion
+    public String[] executeCommand(JSONObject rawCommand){ //Aufruf in Gui-Klasse in der pressTest()-Funktion
         try {
             Robot robot = new Robot();
             robot.delay(5000);
@@ -48,11 +48,11 @@ public class CommandExecution {
                                 break;
                             case "STRG-RELEASE":
                                 robot.keyRelease(VK_CONTROL);
-                                output.append("ALT/");
+                                output.append("STRG-RELEASE/");
                                 break;
                             case "SLASH":
                                 robot.keyPress(VK_SLASH);
-                                output.append("ALT/");
+                                output.append("SLASH/");
                                 break;
                             case "ENTER":
                                 robot.keyPress(VK_ENTER);
@@ -73,14 +73,14 @@ public class CommandExecution {
                                 }
                         }
                     }
-                    return "SUCCESS: " + output;
+                    return new String[]{"SUCCESS", rawCommand.getString("id"), output.toString()};
                 case "error":
-                    return "ERROR: " + rawCommand.getString("command");
+                    return new String[]{"ERROR"+ rawCommand.getString("command"), rawCommand.getString("id")};
                 default:
-                    return "ERROR: unknown device";
+                    return new String[]{"ERROR unknown device"};
             }
         }catch(AWTException|JSONException e){
-            return e.getMessage();
+            return new String[]{e.getMessage()};
         }
     }
 

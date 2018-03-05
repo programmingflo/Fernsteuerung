@@ -19,27 +19,33 @@ import java.util.Scanner;
 
 public class ServerConnection extends Task {
     private final String request;
+    private final String id;
+    private final String result;
 
     /**
      * connection to server
      * @param request request type
+     * @param id command id for send result
+     * @param result result of execution
      * @return JSONObject server response data
      */
-    ServerConnection(String request) {
+    ServerConnection(String request, String id, String result) {
         this.request = request;
+        this.id = id;
+        this.result = result;
     }
 
     @Override
     protected JSONObject call() {
         try{
-            return new JSONObject(downloadFromUrl(request));
+            return new JSONObject(downloadFromUrl(request,id,result));
         }catch (JSONException|IOException e){
             System.out.print(e.getMessage());
             return null;
         }
     }
 
-    private String downloadFromUrl(String node) throws IOException{
+    private String downloadFromUrl(String node, String commandId, String executionResult) throws IOException{
         String urlString = "https://146programming.de/fernsteuerung/"+node;
         InputStream is = null;
         ArrayList<ArrayList<String>> request = new ArrayList<>();
@@ -63,8 +69,18 @@ public class ServerConnection extends Task {
             password.add("password");
             password.add(properties.getProperty("password"));
 
+            ArrayList<String> id = new ArrayList<>();
+            id.add("id");
+            id.add(commandId);
+
+            ArrayList<String> result = new ArrayList<>();
+            result.add("result");
+            result.add(executionResult);
+
             request.add(account);
             request.add(password);
+            request.add(id);
+            request.add(result);
 
             StringBuilder requestString = new StringBuilder();
             Integer response = 1000;
@@ -79,6 +95,7 @@ public class ServerConnection extends Task {
             }
 
             byte[]  postData        = requestString.toString().getBytes(Charset.forName("utf-8"));
+            System.out.print(requestString);
             //Log.v("146s","postData: "+postData);
             int     postDataLength  = postData.length;
             //Log.v("146s","postDataLength: "+postDataLength);

@@ -9,16 +9,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -74,7 +70,7 @@ public class Gui {
         }
 
         try {
-            ServerConnection serverConnection = new ServerConnection(request);
+            ServerConnection serverConnection = new ServerConnection(request, "", "");
             serverConnection.call();
         }catch (Exception e){
             System.out.print(e.getMessage());
@@ -105,26 +101,18 @@ public class Gui {
 
     @FXML
     public void pressTest(){
-        JSONObject testCommand = new JSONObject();
-        try {
-            //Runtime runtime = Runtime.getRuntime();
-            //runtime.exec("cmd.exe /c start pause");
-            testCommand.put("device","keyboard");
-            //testCommand.put("command","test");
-            //testCommand.put("command","WINDOWS/R/WINDOWS-RELEASE/C/M/D/ENTER");
-            testCommand.put("command","C/M/D/ENTER");
-        } catch (JSONException e) {
-            System.out.print(e.getMessage());
-        }/* catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        ServerConnection serverConnection = new ServerConnection("getCommand");
-        testCommand = serverConnection.call();
+        ServerConnection serverConnection = new ServerConnection("getCommand", "", "");
+        JSONObject testCommand = serverConnection.call();
 
         CommandExecution commandExecution = new CommandExecution();
-        String result = commandExecution.executeCommand(testCommand);
-        textAreaOutput.setText(result);
+        String[] result = commandExecution.executeCommand(testCommand);
+        String output = result[0];
+        if(result.length>1){
+            output += ": " + result[2];
+            ServerConnection serverConnection1 = new ServerConnection("saveResult",result[1],result[0]);
+            serverConnection1.call();
+        }
+        textAreaOutput.setText(textAreaOutput.getText()+"\n"+output);
     }
 
     @FXML
@@ -151,8 +139,6 @@ public class Gui {
     // a timer allowing the tray icon to provide a periodic notification event.
     private Timer notificationTimer = new Timer();
 
-    // format used to display the current time in a tray icon notification.
-    private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
     /**
      * Sets up a system tray icon for the application.
      * @author Sergey Gornostaev @ https://stackoverflow.com/questions/40571199/creating-tray-icon-using-javafx
@@ -170,7 +156,6 @@ public class Gui {
 
             // set up a system tray icon.
             java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
-            //URL imageLoc = new URL("http://www.freeiconspng.com/uploads/w-lan-icon-1.png");
             File icon = new File("Fernsteuerung.png");
             java.awt.Image image = ImageIO.read(icon);
             java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
@@ -213,8 +198,8 @@ public class Gui {
                         public void run() {
                             javax.swing.SwingUtilities.invokeLater(() ->
                                     trayIcon.displayMessage(
-                                            "hello",
-                                            "The time is now " + timeFormat.format(new Date()),
+                                            "Fernsteuerung",
+                                            "Background modus aktiviert",
                                             java.awt.TrayIcon.MessageType.INFO
                                     )
                             );
